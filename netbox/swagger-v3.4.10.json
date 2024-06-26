@@ -7795,11 +7795,7 @@
                   "title" : "Display",
                   "type" : "string"
                 },
-              "family" : { 
-                  "readOnly" : true,
-                  "title" : "Family",
-                  "type" : "integer"
-                },
+              "family" : { "$ref" : "#/definitions/NestedIPFamily" },
               "id" : { 
                   "readOnly" : true,
                   "title" : "ID",
@@ -7815,6 +7811,31 @@
           "required" : [ "address" ],
           "type" : "object"
         },
+      "NestedIPFamily": { 
+        "properties" : { 
+            "label" : { 
+                "enum" : [ 
+                    "IPv4",
+                    "IPv6"
+                  ],
+                "type" : "string"
+              },
+            "value" : { 
+                "enum" : [ 
+                    4,
+                    6
+                  ],
+                "type" : "integer"
+              }
+          },
+        "readOnly" : true,
+        "required" : [ 
+            "label",
+            "value"
+          ],
+        "title" : "Family",
+        "type" : "object"
+      },
       "NestedL2VPN" : { 
           "properties" : { 
               "display" : { 
@@ -64588,10 +64609,7 @@
                     "in" : "body",
                     "name" : "data",
                     "required" : true,
-                    "schema" : {
-                        "items" : { "$ref" : "#/definitions/WritableAvailableIP" },
-                        "type" : "array"
-                      }
+                    "schema" : { "$ref" : "#/definitions/WritableAvailableIP" }
                   } ],
               "responses" : { "201" : { 
                       "description" : "",
@@ -66746,10 +66764,7 @@
                     "in" : "body",
                     "name" : "data",
                     "required" : true,
-                    "schema" : {
-                        "items" : { "$ref" : "#/definitions/WritableAvailableIP" },
-                        "type" : "array"
-                      }
+                    "schema" : { "$ref" : "#/definitions/WritableAvailableIP" }
                   } ],
               "responses" : { "201" : { 
                       "description" : "",
@@ -66789,10 +66804,7 @@
                     "in" : "body",
                     "name" : "data",
                     "required" : true,
-                    "schema" : {
-                        "items" : { "$ref" : "#/definitions/PrefixLength" },
-                        "type" : "array"
-                      }
+                    "schema" : { "$ref" : "#/definitions/PrefixLength" }
                   } ],
               "responses" : { "201" : { 
                       "description" : "",

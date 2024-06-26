@@ -2,7 +2,7 @@
 
 set -eu
 
-PROJECT_ROOT=${PROJECT_ROOT:-"$(dirname $GITHUB_WORKSPACE)/src/github.com/smutel/go-netbox"}
+PROJECT_ROOT=${PROJECT_ROOT:-"$(dirname $GITHUB_WORKSPACE)/src/github.com/nonstdout/go-netbox"}
 
 get_last_netbox_version() {
   version=$1
@@ -53,11 +53,11 @@ if [ ! -f "${PROJECT_ROOT}/swagger/swagger-${VERSION}.json" ]; then
   git config advice.detachedHead false
   git checkout ${DOCKER_VERSION}
   mv docker-compose.override.yml.example docker-compose.override.yml
-  sed -i 's/netbox-media-files/gonetbox-media-files/g' docker-compose.yml
-  sed -i 's/netbox-postgres-data/gonetbox-postgres-data/g' docker-compose.yml
-  sed -i 's/netbox-redis-data/gonetbox-redis-data/g' docker-compose.yml
-  sed -i 's/netbox-redis-cache-data/gonetbox-redis-cache-data/g' docker-compose.yml
-  sed -i 's/start_period: 60s/start_period: 600s/g' docker-compose.yml
+  sed -i'.bak' 's/netbox-media-files/gonetbox-media-files/g' docker-compose.yml
+  sed -i'.bak' 's/netbox-postgres-data/gonetbox-postgres-data/g' docker-compose.yml
+  sed -i'.bak' 's/netbox-redis-data/gonetbox-redis-data/g' docker-compose.yml
+  sed -i'.bak' 's/netbox-redis-cache-data/gonetbox-redis-cache-data/g' docker-compose.yml
+  sed -i'.bak' 's/start_period: 60s/start_period: 600s/g' docker-compose.yml
   docker compose down -v
   docker compose up -d --quiet-pull
   cd ..
@@ -72,13 +72,13 @@ else
 fi
 
 
-echo "Patch swagger definition ..."
-cd ../patchs
-find . -type f -name "swagger-${VERSION}-*.patch" -exec echo "Using path {}" \; -exec patch -u ../netbox/swagger-${VERSION}.json -i {} \;
-cd ../utils
+# echo "Patch swagger definition ..."
+# cd ../patchs
+# find . -type f -name "swagger-${VERSION}-*.patch" -exec echo "Using path {}" \; -exec patch -u ../netbox/swagger-${VERSION}.json -i {} \;
+# cd ../utils
 
 echo "Apply hack for int64 ..."
-sed -i 's/922337203685477580/214748364/g' "${PROJECT_ROOT}/netbox/swagger-${VERSION}.json"
+sed -i'.bak' 's/922337203685477580/214748364/g' "${PROJECT_ROOT}/netbox/swagger-${VERSION}.json"
 
 echo "Check swagger definition ..."
 jsonlint "${PROJECT_ROOT}/netbox/swagger-${VERSION}.json"

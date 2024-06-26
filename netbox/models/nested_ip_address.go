@@ -44,9 +44,8 @@ type NestedIPAddress struct {
 	// Read Only: true
 	Display string `json:"display,omitempty"`
 
-	// Family
-	// Read Only: true
-	Family int64 `json:"family,omitempty"`
+	// family
+	Family *NestedIPFamily `json:"family,omitempty"`
 
 	// ID
 	// Read Only: true
@@ -66,6 +65,10 @@ func (m *NestedIPAddress) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateFamily(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
@@ -80,6 +83,25 @@ func (m *NestedIPAddress) validateAddress(formats strfmt.Registry) error {
 
 	if err := validate.Required("address", "body", m.Address); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *NestedIPAddress) validateFamily(formats strfmt.Registry) error {
+	if swag.IsZero(m.Family) { // not required
+		return nil
+	}
+
+	if m.Family != nil {
+		if err := m.Family.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("family")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("family")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -134,8 +156,15 @@ func (m *NestedIPAddress) contextValidateDisplay(ctx context.Context, formats st
 
 func (m *NestedIPAddress) contextValidateFamily(ctx context.Context, formats strfmt.Registry) error {
 
-	if err := validate.ReadOnly(ctx, "family", "body", int64(m.Family)); err != nil {
-		return err
+	if m.Family != nil {
+		if err := m.Family.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("family")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("family")
+			}
+			return err
+		}
 	}
 
 	return nil
