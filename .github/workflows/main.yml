@@ -27,8 +27,8 @@ jobs:
         run: |
           echo "GOPATH=$(dirname $GITHUB_WORKSPACE)" >> $GITHUB_ENV
           echo "$(dirname $GITHUB_WORKSPACE)/bin" >> $GITHUB_PATH
-          mkdir -p "$(dirname $GITHUB_WORKSPACE)/src/github.com/smutel"
-          ln -sf "$GITHUB_WORKSPACE/" "$(dirname $GITHUB_WORKSPACE)/src/github.com/smutel/go-netbox"
+          mkdir -p "$(dirname $GITHUB_WORKSPACE)/src/github.com/nonstdout"
+          ln -sf "$GITHUB_WORKSPACE/" "$(dirname $GITHUB_WORKSPACE)/src/github.com/nonstdout/go-netbox"
         shell: bash
 
       - name: Generate netbox client
@@ -42,6 +42,6 @@ jobs:
         uses: EndBug/add-and-commit@v9.0.1
         with:
           add: 'netbox swagger'
-          author_name: smutel
+          author_name: nonstdout
           default_author: github_actor
           message: 'ci: Autogeneration of go-netbox library'

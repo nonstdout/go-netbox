@@ -1,8 +1,8 @@
 # go-netbox
 
-[![Lisence](https://img.shields.io/badge/license-ISC-informational?style=flat-square)](https://github.com/smutel/go-netbox/blob/main/LICENSE)
+[![Lisence](https://img.shields.io/badge/license-ISC-informational?style=flat-square)](https://github.com/nonstdout/go-netbox/blob/main/LICENSE)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-informational.svg?style=flat-square&logo=git)](https://conventionalcommits.org)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/smutel/go-netbox/main.yml?branch=main&style=flat-square)](https://github.com/smutel/go-netbox/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/nonstdout/go-netbox/main.yml?branch=main&style=flat-square)](https://github.com/nonstdout/go-netbox/actions)
 
 Go library to interact with NetBox IPAM and DCIM service. 
 
@@ -16,13 +16,13 @@ Example:
 
 ## Using the client
 
-The `github.com/smutel/go-netbox/v3/netbox` package has some convenience functions for creating clients with the most common
+The `github.com/nonstdout/go-netbox/v3/netbox` package has some convenience functions for creating clients with the most common
 configurations you likely need while connecting to NetBox. `NewNetboxAt` allows you to specify a hostname
 (including port, if you need it), and `NewNetboxWithAPIKey` allows you to specify both a hostname:port and API token.
 
 ```go
 import (
-    "github.com/smutel/go-netbox/v3/netbox"
+    "github.com/nonstdout/go-netbox/v3/netbox"
 )
 ...
     c := netbox.NewNetboxAt("your.netbox.host:8000")
@@ -44,8 +44,8 @@ import (
 	"os"
 
 	httptransport "github.com/go-openapi/runtime/client"
-	"github.com/smutel/go-netbox/v3/netbox/client"
-	"github.com/smutel/go-netbox/v3/netbox/client/dcim"
+	"github.com/nonstdout/go-netbox/v3/netbox/client"
+	"github.com/nonstdout/go-netbox/v3/netbox/client/dcim"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -97,15 +97,15 @@ func main() {
 ```sh
 $ # Install jsonlint
 $ apt-get install python3-demjson
-$ mkdir -p ~/go/src/github.com/smutel
-$ cd ~/go/src/github.com/smutel
-$ git clone git@github.com:smutel/go-netbox.git
+$ mkdir -p ~/go/src/github.com/nonstdout
+$ cd ~/go/src/github.com/nonstdout
+$ git clone git@github.com:nonstdout/go-netbox.git
 $ export GITHUB_WORKSPACE=~/go/src
 ```
 
 ### Regenerating the library
 
 ```sh
-$ cd ~/go/src/github.com/smutel/go-netbox/utils
+$ cd ~/go/src/github.com/nonstdout/go-netbox/utils
 $ ./netbox_generate_client
 ```

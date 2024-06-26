@@ -3,7 +3,7 @@ name: Bug Report
 about: Create a bug report to help us improve this project
 title: "[Main title for your issue here]"
 labels: bug
-assignees: smutel
+assignees: nonstdout
 ---
 <!-- Verify first that your issue is not already reported on GitHub -->
 <!-- Ensure that the latest release is affected by this bug -->

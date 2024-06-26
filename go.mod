@@ -1,4 +1,4 @@
-module github.com/smutel/go-netbox/v3
+module github.com/nonstdout/go-netbox/v3
 
 go 1.16
 
